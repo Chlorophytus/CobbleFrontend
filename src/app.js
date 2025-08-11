@@ -4,8 +4,10 @@ window.Alpine = Alpine
 
 Alpine.start()
 
+const API_ENDPOINT = "http://127.0.0.1:8080/"
+
 function initializeVideos() {
-    return [...Array(16).keys()].map((index) => {
+    return [...Array(8).keys()].map((index) => {
         let newVideo = document.createElement("div")
         newVideo.className = "xl:m-8 xl:w-96 xl:h-88 bg-white w-70 h-70 m-2 rounded-xl shadow-lg"
 
@@ -32,10 +34,13 @@ function initializeVideos() {
     })
 }
 
-initializeVideos().forEach((video) => {document.getElementById("videos").appendChild(video)})
+function getVersion() {
+    fetch(new URL("/.well-known/version", API_ENDPOINT)).then((result) => {
+        return result.json()
+    }).then((json) =>
+        document.getElementById("version").innerText = `Backend v${json.humanReadable}`
+    )
+}
 
-// postcss().process(css, {parser: postcssJs }).then((result) => {
-//     let style = document.createElement('style')
-//     style.innerText = result.css
-//     document.getElementById("videos").appendChild(style)
-// })
+initializeVideos().forEach((video) => { document.getElementById("videos").appendChild(video) })
+getVersion()
