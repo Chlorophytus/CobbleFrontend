@@ -41,7 +41,22 @@ function initializePage() {
         if (json.ok) {
             initializeVideos(json.videos).forEach((video) => { document.getElementById("videos").appendChild(video) })
             document.getElementById("version").innerText = `Backend v${json.version.readable} | Handled in ${json.responseTime}ms`
+            document.getElementById("loader").classList = "fixed top-0 w-[100%] bg-white z-20 h-[100%] py-[50%] animate-fade"
+            document.getElementById("status").innerText = "Loaded okay!"
+            setTimeout(() => {
+                document.getElementById("loader").remove()
+            }, 500)
+        } else {
+            let status = document.getElementById("status")
+            status.innerText = `Server error: ${json.code}`
+            status.className = "text-3xl text-center m-auto p-4 text-red-700"
+            document.getElementById("status-detail").innerText = json.maintenanceMessage ?? ""
         }
+    }).catch((e) => {
+        let status = document.getElementById("status")
+        status.innerText = `Could not connect`
+        status.className = "text-3xl text-center m-auto p-4 text-red-700"
+        document.getElementById("status-detail").innerText = e
     })
 }
 

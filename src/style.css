@@ -4,4 +4,14 @@
 
 @theme {
     --font-chewy: "Chewy", system-ui;
+
+    --animate-fade: fade-out 500ms;
+    @keyframes fade-out {
+        0% {
+            opacity: 100%;
+        }
+        100% {
+            opacity: 0%;
+        }
+    }
 }
