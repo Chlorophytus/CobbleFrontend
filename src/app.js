@@ -4,7 +4,7 @@ window.Alpine = Alpine
 
 Alpine.start()
 
-const API_ENDPOINT = "http://192.168.88.10:8080/"
+const API_ENDPOINT = "http://127.0.0.1:8080/"
 
 function initializeVideos(videos) {
     return videos.map((video) => {
